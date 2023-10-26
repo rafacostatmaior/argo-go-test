@@ -1,5 +1,4 @@
 ---
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -9,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/rafacostatmaior/argo-go-test
     targetRevision: HEAD
-    path: k8s
+    chart: go-api
   destination:
     server: https://kubernetes.default.svc
     namespace: application
@@ -17,5 +16,9 @@ spec:
     automated:
       prune: true
       selfHeal: true
+      allowEmpty: false
     syncOptions:
-      - Validate=false
+      - Validate=true
+      - CreateNamespace=true
+      - PrunePropagationPolicy-foreground
+      - PruneLast=true
