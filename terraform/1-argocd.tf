@@ -57,7 +57,7 @@ resource "kubectl_manifest" "argo_apps" {
         - resources-finalizer.argocd.argoproj.io
     spec:
       destination:
-        namespace: app-of-apps
+        namespace: argocd
         server: "https://kubernetes.default.svc"
       source:
         path: "argo-cd"

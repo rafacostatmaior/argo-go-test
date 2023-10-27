@@ -7,7 +7,7 @@ spec:
   project: devops
   source:
     repoURL: https://github.com/rafacostatmaior/argo-go-test
-    targetRevision: HEAD
+    targetRevision: 0.1.0
     chart: go-api
   destination:
     server: https://kubernetes.default.svc
