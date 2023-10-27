@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana
+  namespace: argocd 
+spec:
+  project: devops
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: grafana
+  source:
+    chart: grafana
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 6.60.1
+    helm:
+      values: |
+        datasources:
+          datasources.yaml:
+            apiVersion: 1
+            datasources:
+            - name: Prometheus
+              type: prometheus
+              url: http://prometheus-development-server.prometheus-monitoring.svc.cluster.local
+        dashboardProviders:
+          dashboardproviders.yaml:
+            apiVersion: 1
+            providers:
+            - name: 'default'
+              orgId: 1
+              folder: ''
+              type: file
+              disableDeletion: false
+              editable: true
+              options:
+                path: /var/lib/grafana/dashboards/default
+        dashboards:
+          default:
+            argocd:
+              gnetId: 14584
+              datasource: Prometheus
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - Validate=true
+      - CreateNamespace=true
+      - PrunePropagationPolicy-foreground
+      - PruneLast=true
