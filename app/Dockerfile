@@ -1,18 +1,17 @@
 # Etapa 1: Compilação
-FROM golang:1.21 AS builder
+FROM golang:1.21.3-alpine3.17 AS builder
 
 WORKDIR /app
 
-COPY ./app/go.mod ./app/go.sum ./
-
+COPY go.mod go.sum ./
 
 RUN go mod download
 
-COPY ./app .
+COPY . .
 
-RUN go build -o main .
+RUN GOARCH=amd64 GOOS=linux go build -o main
 
-FROM scratch
+FROM golang:1.21.3-alpine3.17
 
 COPY --from=builder /app/main /main
 

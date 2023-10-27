@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: "go-api"
-          image: "rafael556/go-test-api:latest"
+          image: "rafael556/go-test-api:v5"
           ports:
             - name: http
               containerPort: 8080
