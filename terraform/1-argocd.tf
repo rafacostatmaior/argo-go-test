@@ -63,9 +63,6 @@ resource "kubectl_manifest" "argo_apps" {
         path: "argo-cd"
         repoURL: "https://github.com/rafacostatmaior/argo-go-test"
         targetRevision: "HEAD"
-        helm:
-          valueFiles:
-            - "values.yaml"
       project: "devops"
       syncPolicy:
         managedNamespaceMetadata:

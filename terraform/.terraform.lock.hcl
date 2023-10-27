@@ -19,7 +19,8 @@ provider "registry.terraform.io/gavinbunney/kubectl" {
 }
 
 provider "registry.terraform.io/hashicorp/helm" {
-  version = "2.11.0"
+  version     = "2.11.0"
+  constraints = "2.11.0"
   hashes = [
     "h1:zxfRtgpWrVZwjkIBuI+7jc52+u1QBA/k7LQZiCiq3Z8=",
     "zh:013857c88f3e19a4b162344e21dc51891c4ac8b600da8391f7fb2b6d234961e1",
