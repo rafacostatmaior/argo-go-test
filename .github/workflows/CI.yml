@@ -32,7 +32,7 @@ jobs:
         run: |
               TIMESTAMP_TAG=${{ steps.set_tag.outputs.TIMESTAMP_TAG }}
               docker build -t rafael556/go-api:$TIMESTAMP_TAG -f ./app/Dockerfile .
-              docker push your-docker-repo/image-name:$TIMESTAMP_TAG
+              docker push rafael556/go-api:$TIMESTAMP_TAG
 
       - name: Update Helm values
         run: |
