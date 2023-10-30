@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "go-api"
-  namespace: application
+  name: "{{ .Release.Name }}-go-api"
+  namespace: "{{ .Values.namespace }}"
   labels:
-    app: "go"
+    app: "{{ .Values.appName }}"
 spec:
-  replicas: 5
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: "go"
+      app: "{{ .Values.appName }}"
   template:
     metadata:
       labels:
-        app: "go"
+        app: "{{ .Values.appName }}"
     spec:
       containers:
-        - name: "go-api"
-          image: "rafael556/go-api:v5"
+        - name: "{{ .Values.containerName }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: {{ .Values.containerPort }}
               protocol: TCP
           livenessProbe:
             httpGet:
