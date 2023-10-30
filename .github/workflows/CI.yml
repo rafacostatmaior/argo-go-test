@@ -1,0 +1,49 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      - name: Set timestamp tag
+        id: set_tag
+        run: |
+          CURRENT_DATE=$(date +"%Y%m%d%H%M%S")
+          echo "::set-output name=TIMESTAMP_TAG::v$CURRENT_DATE"
+  
+      - name: Docker Login
+        uses: docker/login-action@v3.0.0
+        with:
+          username: rafael556
+          password: password
+  
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      
+      - name: Build Docker image
+        run: |
+              TIMESTAMP_TAG=${{ steps.set_tag.outputs.TIMESTAMP_TAG }}
+              docker build -t rafael556/go-api:$TIMESTAMP_TAG -f ./app/Dockerfile .
+              docker push your-docker-repo/image-name:$TIMESTAMP_TAG
+
+      - name: Update Helm values
+        run: |
+          sed -i 's/tag: \".*\"/tag: \"$TIMESTAMP_TAG\"/' ./go-api/values.yaml
+          # Adicione mais modificações se necessário no arquivo values.yaml do Helm
+
+      - name: Commit & push changes
+        run: |
+          git config --global user.email "rafael.costa@tmaior.com.br"
+          git config --global user.name "rafacostatmaior"
+          git add ./go-api/values.yaml
+          git commit -m "Update Docker image version in Helm values"
+          git push
+        
