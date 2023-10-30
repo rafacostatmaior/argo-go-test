@@ -7,7 +7,7 @@ COPY ./app/go.mod ./app/go.sum ./
 
 RUN go mod download
 
-COPY . .
+COPY ./app .
 
 RUN GOARCH=amd64 GOOS=linux go build -o main
 
