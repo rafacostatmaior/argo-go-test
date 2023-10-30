@@ -45,5 +45,5 @@ jobs:
           git config --global user.name "rafacostatmaior"
           git add ./go-api/values.yaml
           git commit -m "Update Docker image version in Helm values"
-          git push https://"${{secrets.APP_TOKEN}}"@github.com/rafacostatmaior/argo-go-test.git HEAD:master
+          git push https://${{secrets.APP_TOKEN}}@github.com/rafacostatmaior/argo-go-test.git HEAD:master
         
