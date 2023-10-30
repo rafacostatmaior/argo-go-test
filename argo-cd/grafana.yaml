@@ -38,6 +38,9 @@ spec:
             argocd:
               gnetId: 14584
               datasource: Prometheus
+            go-api:
+              gnetId: 13240
+              datasource: Prometheus
   syncPolicy:
     automated:
       prune: true
