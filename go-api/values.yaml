@@ -5,7 +5,7 @@ namespace: "application"
 
 image:
   repository: "rafael556/go-api"
-  tag: "v9"
+  tag: "$TIMESTAMP_TAG"
 
 containerPort: 8080
 servicePort: 8080
